@@ -1,0 +1,42 @@
+---
+
+# present
+
+- name: erlang | add repository | redhat >>>
+  yum_repository:
+    baseurl: "{{erlang_yum_baseurl}}"
+    description: Centos $releasever - $basearch - Erlang Solutions
+    gpgkey: "{erlang_yum_key}"
+    name: erlang-solutions
+    state: present
+  when: erlang_state == "present"
+
+- name: erlang | install erlang | redhat >>>
+  yum:
+    name: erlang
+    state: installed
+    update_cache: yes
+  when: erlang_state == "present"
+
+# absent
+
+- name: erlang | remove repository | redhat >>>
+  yum_repository:
+    baseurl: "{{erlang_yum_baseurl}}"
+    description: Centos $releasever - $basearch - Erlang Solutions
+    gpgkey: "{erlang_yum_key}"
+    name: erlang-solutions
+    state: absent
+  when: erlang_state == "absent"
+
+- name: erlang | remove erlang | redhat >>>
+  yum:
+    name: erlang
+    state: removed
+    update_cache: no
+  when: erlang_state == "absent"
+
+- name: erlang | autoremove packages | red hat >>>
+  command: "/usr/bin/yum -y autoremove"
+  when: erlang_state == "absent"
+

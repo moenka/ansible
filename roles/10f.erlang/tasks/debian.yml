@@ -1,0 +1,50 @@
+---
+
+# present
+
+- name: erlang | add gpg key for repository | debian >>>
+  apt_key:
+    id: '{{ erlang_apt_key_id }}'
+    url: '{{ erlang_apt_key }}'
+    state: present
+  when: erlang_state == "present"
+
+- name: erlang | add repository | debian >>>
+  apt_repository:
+    repo: '{{ erlang_apt_repo }}'
+    update_cache: yes
+    state: present
+  when: erlang_state == "present"
+
+- name: erlang | install erlang | debian >>>
+  apt:
+    name: erlang
+    state: installed
+    update_cache: yes
+    cache_valid_time: 3600
+  when: erlang_state == "present"
+
+# absent
+
+- name: erlang | remove gpg key for repository | debian >>>
+  apt_key:
+    id: '{{ erlang_apt_key_id }}'
+    url: '{{ erlang_apt_key }}'
+    state: absent
+  when: erlang_state == "absent"
+
+- name: erlang | remove repository | debian >>>
+  apt_repository:
+    repo: '{{ erlang_apt_repo }}'
+    update_cache: yes
+    state: absent
+  when: erlang_state == "absent"
+
+- name: erlang | remove erlang | debian >>>
+  apt:
+    autoremove: yes
+    name: erlang
+    purge: yes
+    state: removed
+  when: erlang_state == "absent"
+

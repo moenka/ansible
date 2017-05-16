@@ -1,0 +1,9 @@
+---
+
+erlang_apt_repo: deb http://packages.erlang-solutions.com/{{ansible_distribution|lower}} {{ansible_distribution_release|lower}} contrib
+erlang_apt_key: http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
+erlang_apt_key_id: A14F4FCA
+erlang_state: present
+erlang_yum_baseurl: https://packages.erlang-solutions.com/rpm/centos/$releasever/$basearch
+erlang_yum_key: https://packages.erlang-solutions.com/rpm/erlang_solutions.asc
+

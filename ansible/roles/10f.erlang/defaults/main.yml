@@ -1,0 +1,8 @@
+---
+
+10f_erlang: absent
+10f_erlang_apt_repo: "deb http://packages.erlang-solutions.com/{{ansible_distribution|lower}} {{ansible_distribution_release|lower}} contrib"
+10f_erlang_apt_key: http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
+10f_erlang_apt_key_id: A14F4FCA
+10f_erlang_yum_baseurl: https://packages.erlang-solutions.com/rpm/centos/$releasever/$basearch
+10f_erlang_yum_key: https://packages.erlang-solutions.com/rpm/erlang_solutions.asc

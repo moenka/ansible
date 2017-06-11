@@ -1,0 +1,49 @@
+---
+
+# present
+
+- name: ERLANG | add gpg key for repository
+  apt_key:
+    id: '{{10f_erlang_apt_key_id}}'
+    url: '{{10f_erlang_apt_key}}'
+    state: present
+  when: 10f_erlang == "present"
+
+- name: ERLANG | add repository
+  apt_repository:
+    repo: '{{10f_erlang_apt_repo}}'
+    update_cache: yes
+    state: present
+  when: 10f_erlang == "present"
+
+- name: ERLANG | install erlang
+  apt:
+    name: erlang-base
+    state: installed
+    update_cache: yes
+    cache_valid_time: 3600
+  when: 10f_erlang == "present"
+
+# absent
+
+- name: ERLANG | remove erlang
+  apt:
+    autoremove: yes
+    name: erlang-base
+    purge: yes
+    state: absent
+  when: 10f_erlang == "absent"
+
+- name: ERLANG | remove repository
+  apt_repository:
+    repo: '{{10f_erlang_apt_repo}}'
+    update_cache: yes
+    state: absent
+  when: 10f_erlang == "absent"
+
+- name: ERLANG | remove gpg key for repository
+  apt_key:
+    id: '{{10f_erlang_apt_key_id}}'
+    url: '{{10f_erlang_apt_key}}'
+    state: absent
+  when: 10f_erlang == "absent"

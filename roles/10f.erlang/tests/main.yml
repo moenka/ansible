@@ -1,6 +1,0 @@
----
-
-- hosts: all
-  roles:
-    - ../../ansible-role-erlang
-

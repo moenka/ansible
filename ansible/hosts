@@ -1,0 +1,7 @@
+[debian]
+ubuntu-xenial-1.vagrant
+ubuntu-xenial-2.vagrant
+
+[redhat]
+centos-7-1.vagrant
+centos-7-2.vagrant

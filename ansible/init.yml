@@ -1,0 +1,71 @@
+---
+
+- hosts: all
+  gather_facts: no
+  tasks:
+
+    - name: INIT | install python (debian)
+      raw: 'apt-get -y install python-minimal python-dev'
+      register: install
+      changed_when:
+        - not install.stdout|search('0 upgraded, 0 newly installed')
+        - not install.stdout|search('command not found')
+      failed_when: false
+
+    - name: INIT | install python (redhat)
+      raw: 'yum -y install python'
+      register: install
+      changed_when:
+        - not install.stdout|search('Nothing to do')
+        - not install.stdout|search('command not found')
+      failed_when: false
+
+- hosts: all
+  tasks:
+
+    - name: INIT | upgrade system (Debian)
+      apt:
+        autoremove: yes
+        cache_valid_time: 3600
+        purge: yes
+        update_cache: yes
+        upgrade: dist
+      when: ansible_os_family == 'Debian'
+
+    - name: INIT | upgrade systems (RedHat)
+      yum:
+        name: '*'
+        state: latest
+        update_cache: yes
+      when: ansible_os_family == 'RedHat'
+
+    - name: INIT | install apt-transport-https (Debian)
+      apt:
+        name: apt-transport-https
+      when: ansible_os_family == 'Debian'
+
+    - name: INIT | install epel-release (RedHat)
+      yum:
+        name: epel-release
+      when: ansible_os_family == 'RedHat'
+
+    - name: INIT | install packages (Debian)
+      apt:
+        name: '{{item}}'
+      with_items:
+        - bash-completion
+        - htop
+        - locales-all
+        - screen
+        - vim
+      when: ansible_os_family == 'Debian'
+
+    - name: INIT | install packages (RedHat)
+      yum:
+        name: '{{item}}'
+      with_items:
+        - bash-completion
+        - htop
+        - screen
+        - vim
+      when: ansible_os_family == 'RedHat'

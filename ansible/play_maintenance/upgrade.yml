@@ -1,0 +1,25 @@
+---
+
+- hosts: all
+  tasks:
+
+    - name: upgrade system (Debian)
+      apt:
+        cache_valid_time: 3600
+        update_cache: yes
+        upgrade: dist
+      when: ansible_os_family == 'Debian'
+
+    - name: autoremove packages (Debian)
+      apt:
+        autoremove: yes
+        purge: yes 
+      when: ansible_os_family == 'Debian'
+
+    - name: upgrade system (RedHat)
+      yum:
+        name: '*'
+        state: latest
+        update_cache: yes
+      when: ansible_os_family == 'RedHat'
+

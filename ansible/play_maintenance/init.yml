@@ -23,22 +23,6 @@
 - hosts: all
   tasks:
 
-    - name: INIT | upgrade system (Debian)
-      apt:
-        autoremove: yes
-        cache_valid_time: 3600
-        purge: yes
-        update_cache: yes
-        upgrade: dist
-      when: ansible_os_family == 'Debian'
-
-    - name: INIT | upgrade systems (RedHat)
-      yum:
-        name: '*'
-        state: latest
-        update_cache: yes
-      when: ansible_os_family == 'RedHat'
-
     - name: INIT | install apt-transport-https (Debian)
       apt:
         name: apt-transport-https

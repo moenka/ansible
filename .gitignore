@@ -1,2 +1,4 @@
 .vagrant
 *.retry
+ansible/ansible.log
+ansible/roles/

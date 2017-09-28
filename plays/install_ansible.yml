@@ -38,7 +38,7 @@
     - name: install ansible additions
       pip:
         name: "{{ item }}"
-        state: latest
+        state: present
       with_items:
         - ansible-lint
         - docker

@@ -1,6 +1,0 @@
-#!/bin/bash
-
-cd ansible
-ansible-lint .
-ansible-playbook init.yml
-ansible-playbook roletest-10f.erlang.yml

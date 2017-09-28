@@ -1,5 +1,0 @@
----
-
-- hosts: all
-  roles:
-    - 10f.erlang

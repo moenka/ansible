@@ -1,0 +1,46 @@
+---
+- hosts: all
+  vars:
+    ansible_version: '2.3.2.0'
+  tasks:
+    - name: install dependencies (RedHat)
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - gcc
+        - libtomcrypt
+        - libtommath
+        - python-devel
+        - python-pip
+        - python-setuptools
+        - python2-crypto
+      when: ansible_os_family == 'RedHat'
+    - name: install dependencies (Debian)
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - build-essential
+        - libffi-dev
+        - libssl-dev
+        - python-pip
+        - python2.7
+        - python-dev
+        - python-setuptools
+        - python-minimal
+      when: ansible_os_family == 'Debian'
+    - name: install ansible version {{ ansible_version.full }}
+      pip:
+        name: ansible
+        state: present
+        version: "{{ ansible_version.full }}"
+    - name: install ansible additions
+      pip:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - ansible-lint
+        - docker
+        - molecule
+        - pip

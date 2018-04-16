@@ -1,0 +1,10 @@
+---
+- name: 10forge.docker
+  scm: git
+  src: https://github.com/10forge/ansible-docker
+  version: 0.1.2
+- name: grycap.ntp
+  scm: git
+  src: https://github.com/grycap/ansible-role-ntp
+  version: 35833801363997a517e35edc8d7da3ac7d8f6762
+

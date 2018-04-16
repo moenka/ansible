@@ -1,4 +1,4 @@
 .vagrant
 *.retry
-ansible/ansible.log
-ansible/roles/
+/roles/*/meta/.galaxy_install_info
+/roles/*/molecule
